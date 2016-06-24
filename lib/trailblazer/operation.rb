@@ -10,8 +10,8 @@ module Trailblazer
     self.contract_class = Reform::Form.clone
 
     class << self
-      def run(params, &block) # Endpoint behaviour
-        res, op = build_operation(params).run
+      def run(params, dependencies={}, &block) # Endpoint behaviour
+        res, op = build_operation(params, dependencies={}).run
 
         if block_given?
           yield op if res
@@ -30,8 +30,8 @@ module Trailblazer
 
       # ::call only returns the Operation instance (or whatever was returned from #validate).
       # This is useful in tests or in irb, e.g. when using Op as a factory and you already know it's valid.
-      def call(params)
-        build_operation(params, raise_on_invalid: true).run.last
+      def call(params, dependencies={})
+        build_operation(params, dependencies.merge(raise_on_invalid: true)).run.last
       end
 
       def [](*args) # TODO: remove in 1.2.
@@ -41,7 +41,7 @@ module Trailblazer
 
       # Runs #setup! but doesn't process the operation.
       def present(params)
-        build_operation(params)
+        build_operation(params, {})
       end
 
       # This is a DSL method. Use ::contract_class and ::contract_class= for the explicit version.

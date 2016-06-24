@@ -5,7 +5,7 @@ gemspec
 
 # gem "representable", path: "../representable"
 # gem "disposable", path: "../disposable"
-gem "reform", github: "apotonick/reform"
+gem "reform"#, github: "apotonick/reform"
 gem "reform-rails"
 
 gem "roar", github: "apotonick/roar"
