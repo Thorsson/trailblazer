@@ -11,7 +11,7 @@ module Trailblazer
 
     class << self
       def run(params, dependencies={}, &block) # Endpoint behaviour
-        res, op = build_operation(params, dependencies={}).run
+        res, op = build_operation(params, dependencies).run # FIXME: teeeeeest
 
         if block_given?
           yield op if res
